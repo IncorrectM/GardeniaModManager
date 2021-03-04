@@ -3,7 +3,10 @@ package xyz.sushiland.gardenia.mo.gui.view
 import javafx.scene.Parent
 import javafx.scene.control.Alert
 import javafx.scene.control.ButtonType
+import javafx.stage.DirectoryChooser
+import javafx.stage.FileChooser
 import tornadofx.*
+import xyz.sushiland.gardenia.mo.FileOperation
 import xyz.sushiland.gardenia.mo.GardeniaModManager
 import xyz.sushiland.gardenia.mo.gui.controller.Store
 import kotlin.system.exitProcess
@@ -15,7 +18,18 @@ class Bottom : View() {
             menu("File") {
                 item("Install") {
                     action {
-                        alert(Alert.AlertType.INFORMATION, "Ooops", "It's not done yet.")
+
+                        val chooser = FileChooser()
+                        chooser.title = "Choose file path(.dll or .zip)."
+                        val stage = primaryStage
+                        stage.isResizable = false
+                        val chooseResult = chooser.showOpenDialog(stage)
+                        if (chooseResult != null){
+                            val dir = chooseResult.absolutePath
+                            store.installPlugin(dir)
+                        } else {
+                            println("No file chosen. Installation cancelled")
+                        }
                     }
                 }
                 item("Uninstall") {

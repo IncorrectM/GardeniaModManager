@@ -6,6 +6,7 @@ import javafx.stage.DirectoryChooser
 import tornadofx.Controller
 import tornadofx.SortedFilteredList
 import tornadofx.alert
+import xyz.sushiland.gardenia.mo.FileOperation
 import xyz.sushiland.gardenia.mo.GardeniaModManager
 import xyz.sushiland.gardenia.mo.Plugin
 import xyz.sushiland.gardenia.mo.gui.models.PluginItem
@@ -62,6 +63,15 @@ class Store: Controller() {
     fun refreshModManger() {
         this.modManager.refresh()
         this.refresh()
+    }
+
+    fun installPlugin(dir: String) {
+        if ( FileOperation.movePlugin(dir, modManager.pgnFile.absolutePath) == null) {
+            alert(Alert.AlertType.INFORMATION, "Invalid file type", "Choose a .dll file or .zip file please.")
+        } else {
+            refreshModManger()
+        }
+        refresh()
     }
 
     private fun refresh() {
