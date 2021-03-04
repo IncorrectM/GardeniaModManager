@@ -46,16 +46,6 @@ class Store: Controller() {
         items.add(PluginItem(newItem))
     }
 
-    fun removePlugin(plugin: Plugin) {
-        modManager.remove(plugin.renamedTitle)
-        refresh()
-    }
-
-    fun removePluginItem(pgnItem: PluginItem) {
-        modManager.removeByUUID(pgnItem.id)
-        refresh()
-    }
-
     fun removeByUUID(id: UUID?) {
         id?.apply {
             modManager.removeByUUID(this)

@@ -1,5 +1,6 @@
 package xyz.sushiland.gardenia.mo
 
+import com.beust.klaxon.Json
 import com.beust.klaxon.Klaxon
 import xyz.sushiland.gardenia.mo.exception.ModManagerNotVeridiedException
 import xyz.sushiland.gardenia.mo.exception.NotADirectoryException
@@ -271,6 +272,7 @@ class GardeniaModManager(loadState: Boolean = true) {
 }
 
 data class Plugin(val registeredTitle: String, val path: String, var renamedTitle: String = registeredTitle){
+    @Json(ignored = true)
     val uuid = UUID.randomUUID()
 }
 
