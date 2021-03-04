@@ -9,6 +9,7 @@ import tornadofx.*
 import xyz.sushiland.gardenia.mo.FileOperation
 import xyz.sushiland.gardenia.mo.GardeniaModManager
 import xyz.sushiland.gardenia.mo.gui.controller.Store
+import java.io.File
 import kotlin.system.exitProcess
 
 class Bottom : View() {
@@ -20,9 +21,12 @@ class Bottom : View() {
                     action {
 
                         val chooser = FileChooser()
+                        chooser.extensionFilters.addAll(FileChooser.ExtensionFilter("Mod File", "*.dll"),
+                                                        FileChooser.ExtensionFilter("Zip File",".zip"),
+                                                        FileChooser.ExtensionFilter("All Valid File","*.zip", "*.dll"))
+                        chooser.initialDirectory = File(store.modManager.rootPath)
                         chooser.title = "Choose file path(.dll or .zip)."
                         val stage = primaryStage
-                        stage.isResizable = false
                         val chooseResult = chooser.showOpenDialog(stage)
                         if (chooseResult != null){
                             val dir = chooseResult.absolutePath
